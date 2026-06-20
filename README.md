@@ -1,19 +1,19 @@
-# Producer---consumer-problem using C
+# Producer-consumer-problem using C
 A thread-safe, bounded circular buffer shared between a producer thread
 and a consumer thread, implemented in C using POSIX threads
-# What is demonstrated
-Multi-threading-Seprate producer and consumer threads running concurrently
+## What is demonstrated
+Multi-threading-Separate producer and consumer threads running concurrently
 Mutual-exclusion- a pthread_mutex_t protects the shared buffer, index pointers, and item count from race conditions
 Condition variables — pthread_cond_t is used so threads block efficiently when the buffer is full or empty, instead of spinning in a loop
 Circular buffer — fixed-size array reused via modulo arithmetic on the read/write indices
-# Why I prefered using condition variables instea of just using mutex:
+## Why I preferred using condition variables instead of just using mutex:
 A mutex alone only prevents two threads from touching shared data at the
 same time — it does not stop a consumer from trying to read an item
 that hasn't been produced yet, or a producer from writing into a full
 buffer. Condition variables let a thread sleep until a specific condition
 becomes true (buffer no longer empty / no longer full), and the producer
-and consumer signal each other when that happens. Which makes my program mmuch more efficent.
-# Program:
+and consumer signal each other when that happens. Which makes my program much more efficent.
+## Program:
 ```
 #include <stdio.h>
 #include <stdlib.h>
@@ -90,7 +90,8 @@ int main() {
     return 0;
 }
 ```
-# Output:
+## Output:
+```
 Produced: 1 (count=1)
 Consumed: 1 (count=0)
 Produced: 2 (count=1)
@@ -101,5 +102,6 @@ Consumed: 2 (count=3)
 Consumed: 3 (count=2)
 Consumed: 4 (count=1)
 Consumed: 5 (count=0)
+```
 
 
